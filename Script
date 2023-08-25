@@ -1,0 +1,30 @@
+import requests
+
+def search_with_dorks(username):
+    dorks = [
+        "site:twitter.com {}",
+        "site:instagram.com {}",
+        "site:linkedin.com/in/ {}",
+        "site:facebook.com {}",
+        "site:pastebin.com {}",
+        "site:github.com {}",
+        "site:medium.com {}",
+        "site:reddit.com/user/ {}"
+    ]
+    
+    for dork in dorks:
+        query = dork.format(username)
+        url = "https://www.google.com/search?q=" + query.replace(" ", "+")
+        print("Searching with dork:", query)
+        print("URL:", url)
+        
+        response = requests.get(url)
+        if response.status_code == 200:
+            print(response.text)
+            print("=" * 50)
+        else:
+            print("Error:", response.status_code)
+
+if __name__ == "__main__":
+    username = input("Enter the username: ")
+    search_with_dorks(username)
